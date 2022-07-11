@@ -1,0 +1,91 @@
+<div>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td>Description</td>
+                    <td>Category</td>
+                    <td>Specification</td>
+                    <td style="text-align: center;">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach((item)=> {%>
+                    <tr>
+                        <td>
+                            <%=item.id%>
+                        </td>
+                        <td>
+                            <%=item.name%>
+                        </td>
+                        <td>
+                            <%=item.price%>
+                        </td>
+                        <td>
+                            <%=item.desc%>
+                        </td>
+                        <td>
+                            <%=item.category%>
+                        </td>
+                        <td>
+                            <%=item.specification%>
+                        </td>
+                        <td style="display:flex; justify-content: center;">
+                            <div style="display: flex; gap:2px;">
+                                <button class="btn btn-primary" onclick="editproduct('<%=item.id%>')"> Edit
+                                    <!-- <a style="text-decoration: none;color:white"
+                                        href="/editproduct/<%=item.id%>">Edit</a> -->
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal"
+                                    onclick="setData('<%=item.name%>','<%=item.id%>')">Delete</button>
+                                <!-- <button type="button" class="btn btn-danger"
+                                            onclick="deleteproduct('<%=item.id%>')">Delete</button> -->
+                            </div>
+                        </td>
+                    </tr>
+                    <%});%>
+            </tbody>
+        </table>
+        <% if(products.length===0) {%>
+            <div>No data exist.</div>
+            <%}%>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="deletemessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="deleteproduct(selectedId)">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var selectedId = null;
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus');
+    });
+    function setData(name, id) {
+        selectedId = id;
+        $('#deletemessage').html(`Are you seure want to delete item <b>${name}</b>?`)
+    }
+    function editproduct(id) {
+        location.href = `/editproduct?id=${id}`
+    }
+</script>

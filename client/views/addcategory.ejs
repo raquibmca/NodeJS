@@ -1,0 +1,27 @@
+<form id="categoryform" action="/addnewcategory" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 heading"> Add New Category</div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3"><label for="name"> <span class="req mr-1">*</span>Category Name </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" name="name" id="name" class="form-control" required />
+                <span class="req" id="err_name"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-3"><label for="desc"><span class="req mr-1">*</span>Description</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" name="desc" id="desc" class="form-control" required />
+                <span class="req" id="err_gender"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary m-1">Save</button>
+            <button type="reset" class="btn btn-secondary m-1">Reset</button>
+        </div>
+    </div>
+</form>
