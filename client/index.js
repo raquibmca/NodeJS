@@ -7,7 +7,7 @@ const links = require("./utils/links");
 const app = express();
 
 const PORT = 3030;
-const serverURL = null//"https://nodeejsapi.herokuapp.com" 
+const serverURL = "https://nodeejsapi.herokuapp.com";
 const baseURL = serverURL || "http://localhost:5001";
 
 app.set("view engine", "ejs");
