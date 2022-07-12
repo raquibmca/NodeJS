@@ -28,7 +28,7 @@ app.get("/addproduct", async (req, res) => {
 
 app.get("/viewproduct", async (req, res) => {
     const response = await axios.get(`${baseURL}/api/product`);
-    renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data } })
+    renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data, url: `${baseURL}/api/product` } })
 });
 
 app.post("/addnewproduct", async (req, res) => {
@@ -49,7 +49,7 @@ app.get("/editproduct", async (req, res) => {
 app.post("/updateproduct", async (req, res) => {
     await axios.put(`${baseURL}/api/product`, req.body);
     const response = await axios.get(`${baseURL}/api/product`);
-    renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data } })
+    renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data, url: `${baseURL}/api/product` } })
 });
 
 /* ------------------- CATEGORY ------------------ */
@@ -64,7 +64,7 @@ app.post("/addnewcategory", async (req, res) => {
 
 app.get("/viewcategory", async (req, res) => {
     const response = await axios.get(`${baseURL}/api/category`);
-    renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data } })
+    renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data, url: `${baseURL}/api/category` } })
 });
 
 app.get("/editcategory", async (req, res) => {
@@ -79,7 +79,7 @@ app.get("/editcategory", async (req, res) => {
 app.post("/updatecategory", async (req, res) => {
     await axios.put(`${baseURL}/api/category`, req.body);
     const response = await axios.get(`${baseURL}/api/category`);
-    renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data } })
+    renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data, url: `${baseURL}/api/category` } })
 });
 
 const renderPage = (res, dataObj) => {
