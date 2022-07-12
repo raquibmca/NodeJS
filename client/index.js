@@ -6,7 +6,10 @@ const links = require("./utils/links");
 
 const app = express();
 
-const PORT = 3030
+const PORT = 3030;
+const serverURL = null//"https://nodeejsapi.herokuapp.com" 
+const baseURL = serverURL || "http://localhost:5001";
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,23 +22,23 @@ app.get("/", (req, res) => {
 /* ------------------- PRODUCT ------------------ */
 
 app.get("/addproduct", async (req, res) => {
-    const response = await axios.get("http://localhost:5001/api/category");
+    const response = await axios.get(`${baseURL}/api/category`);
     renderPage(res, { name: "addproduct", title: "Add Product", args: { category: response.data } })
 });
 
 app.get("/viewproduct", async (req, res) => {
-    const response = await axios.get("http://localhost:5001/api/product");
+    const response = await axios.get(`${baseURL}/api/product`);
     renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data } })
 });
 
 app.post("/addnewproduct", async (req, res) => {
-    await axios.post("http://localhost:5001/api/product", req.body);
-    const response = await axios.get("http://localhost:5001/api/category");
+    await axios.post(`${baseURL}/api/product`, req.body);
+    const response = await axios.get(`${baseURL}/api/category`);
     renderPage(res, { name: "addproduct", title: "Add Product", args: { category: response.data } })
 });
 
 app.get("/editproduct", async (req, res) => {
-    const response = await axios.get("http://localhost:5001/api/product");
+    const response = await axios.get(`${baseURL}/api/product`);
     const selectedRecord = response.data.find(f => f.id === parseInt(req.query.id))
     renderPage(res, {
         name: "editproduct", title: `Edit Product (${selectedRecord.name})`,
@@ -44,8 +47,8 @@ app.get("/editproduct", async (req, res) => {
 });
 
 app.post("/updateproduct", async (req, res) => {
-    await axios.put("http://localhost:5001/api/product", req.body);
-    const response = await axios.get("http://localhost:5001/api/product");
+    await axios.put(`${baseURL}/api/product`, req.body);
+    const response = await axios.get(`${baseURL}/api/product`);
     renderPage(res, { name: "viewproduct", title: "View Product", args: { products: response.data } })
 });
 
@@ -55,17 +58,17 @@ app.get("/addcategory", async (req, res) => {
 });
 
 app.post("/addnewcategory", async (req, res) => {
-    await axios.post("http://localhost:5001/api/category", req.body);
+    await axios.post(`${baseURL}/api/category`, req.body);
     renderPage(res, { name: "addcategory", title: "Add Category" })
 });
 
 app.get("/viewcategory", async (req, res) => {
-    const response = await axios.get("http://localhost:5001/api/category");
+    const response = await axios.get(`${baseURL}/api/category`);
     renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data } })
 });
 
 app.get("/editcategory", async (req, res) => {
-    const response = await axios.get("http://localhost:5001/api/category");
+    const response = await axios.get(`${baseURL}/api/category`);
     const selectedRecord = response.data.find(f => f.id === parseInt(req.query.id))
     renderPage(res, {
         name: "editcategory", title: `Edit Category (${selectedRecord.name})`,
@@ -74,8 +77,8 @@ app.get("/editcategory", async (req, res) => {
 });
 
 app.post("/updatecategory", async (req, res) => {
-    await axios.put("http://localhost:5001/api/category", req.body);
-    const response = await axios.get("http://localhost:5001/api/category");
+    await axios.put(`${baseURL}/api/category`, req.body);
+    const response = await axios.get(`${baseURL}/api/category`);
     renderPage(res, { name: "viewcategory", title: "View Category", args: { products: response.data } })
 });
 
@@ -92,4 +95,4 @@ const renderPage = (res, dataObj) => {
     });
 }
 
-app.listen(PORT, () => console.log(`server started at ${PORT} port`));
+app.listen(process.env.PORT || PORT, () => console.log(`server started at ${PORT} port`));

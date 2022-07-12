@@ -4,7 +4,8 @@
   "description": "SampleExpressAPI",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dstart": "nodemon index.js"
   },
   "author": "Raquib",
   "license": "ISC",

@@ -31,6 +31,6 @@ app.use("/api/category", category);
 //     });
 // })
 
-app.listen(5001, () => {
+app.listen(process.env.PORT || 5001, () => {
     console.log('Listing on port 5001');
 });
